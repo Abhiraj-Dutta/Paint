@@ -1,56 +1,102 @@
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include <cstdlib>
+#include <GL/glut.h>    
+#include<iostream>
 
+using namespace std;
 
+GLsizei width, height;
 
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+float r, g, b, x, y;
+
+bool check = false;
+bool mouseDown = true;
+
+void mouse(int button, int state, int mousex, int mousey)
 {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
-        double xpos, ypos;
-        //getting cursor position
-        glfwGetCursorPos(window, &xpos, &ypos);
-        std::cout << "Cursor Position at (" << xpos << " : " << ypos << ")" << std::endl;
-       
+        mouseDown = true;
+        
+   }
+    else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+    {
+        mouseDown = false;
+
     }
+
+
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        check = true;
+
+        x = mousex;
+        y = 480 - mousey;
+       
+       
+        
+   }
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+    {
+        check = false;
+
+        x = mousex;
+        y = 480 - mousey;
+
+
+
+    }
+    if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
+    {
+        glClearColor(1, 1, 1, 0);
+        glClear(GL_COLOR_BUFFER_BIT);
+        check = false;
+
+    }
+
+   
 }
 
-int main(void)
+void display(void)
 {
-    GLFWwindow* window;
+    glColor3f(0, 0, 1);
+    glPointSize(10);
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0.0, 640.0, 0.0, 480.0);
+    cout << check << endl;
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
+    if (check)
     {
-        glfwTerminate();
-        return -1;
-    }
+        glBegin(GL_POINTS);
+        glVertex2i(x, y);
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 1);
-        glRectf(-0.2f, 0.2f, 0.2f, -0.2f);
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
-        glfwSetMouseButtonCallback(window, mouse_button_callback);
+        glEnd();
         
     }
 
-    glfwTerminate();
+    glFlush();
+    glutPostRedisplay();
+}
+
+
+
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(640, 480);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Paint");
+
+    
+
+    // initializing callbacks
+    
+    glutDisplayFunc(display);
+    glutMouseFunc(mouse);
+    
+
+    glutMainLoop();
     return 0;
 }
