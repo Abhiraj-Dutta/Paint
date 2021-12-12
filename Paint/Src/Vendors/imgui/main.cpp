@@ -1,18 +1,4 @@
-// Dear ImGui: standalone example application for GLUT/FreeGLUT + OpenGL2, using legacy fixed pipeline
-// If you are new to Dear ImGui, read documentation from the docs/ folder + read the top of imgui.cpp.
-// Read online: https://github.com/ocornut/imgui/tree/master/docs
 
-// !!! GLUT/FreeGLUT IS OBSOLETE PREHISTORIC SOFTWARE. Using GLUT is not recommended unless you really miss the 90's. !!!
-// !!! If someone or something is teaching you GLUT today, you are being abused. Please show some resistance. !!!
-// !!! Nowadays, prefer using GLFW or SDL instead!
-
-// On Windows, you can install Freeglut using vcpkg:
-//   git clone https://github.com/Microsoft/vcpkg
-//   cd vcpkg
-//   bootstrap - vcpkg.bat
-//   vcpkg install freeglut --triplet=x86-windows   ; for win32
-//   vcpkg install freeglut --triplet=x64-windows   ; for win64
-//   vcpkg integrate install                        ; register include and libs in Visual Studio
 
 #include "imgui.h"
 #include "imgui_impl_glut.h"
