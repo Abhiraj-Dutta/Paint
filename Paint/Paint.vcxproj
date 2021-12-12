@@ -145,13 +145,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Vendors\imgui\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="Src\Vendors\imgui\imgui_impl_glut.cpp" />
     <ClCompile Include="Src\Main.cpp" />
+    <ClCompile Include="Src\Vendors\imgui\imgui.cpp" />
+    <ClCompile Include="Src\Vendors\imgui\imgui_demo.cpp" />
+    <ClCompile Include="Src\Vendors\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Src\Vendors\imgui\imgui_tables.cpp" />
+    <ClCompile Include="Src\Vendors\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\GLEW\bin\Release\Win32\glew32.dll" />
     <None Include="Dependencies\GLUT\bin\freeglut.dll" />
     <None Include="freeglut.dll" />
     <None Include="glew32.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Vendors\imgui\imgui_impl_opengl2.h" />
+    <ClInclude Include="Src\Vendors\imgui\imgui_impl_glut.h" />
+    <ClInclude Include="Src\Vendors\imgui\imconfig.h" />
+    <ClInclude Include="Src\Vendors\imgui\imgui.h" />
+    <ClInclude Include="Src\Vendors\imgui\imgui_internal.h" />
+    <ClInclude Include="Src\Vendors\imgui\imstb_rectpack.h" />
+    <ClInclude Include="Src\Vendors\imgui\imstb_textedit.h" />
+    <ClInclude Include="Src\Vendors\imgui\imstb_truetype.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
