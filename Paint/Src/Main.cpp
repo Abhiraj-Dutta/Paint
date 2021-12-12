@@ -98,15 +98,7 @@ void draw()
 
    
         
-        glBegin(GL_LINES);
-        glColor3f(0.0f, 0.0f, 0.0f);
-        for (size_t i = 0; i < points.size(); i += 2)
-        {
-        glVertex2i(points[i], glutGet(GLUT_WINDOW_HEIGHT) - points[i]);
-    }
-        glEnd();
-    
-
+ 
 }
 
 
