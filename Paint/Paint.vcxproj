@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\GUI.cpp" />
     <ClCompile Include="Src\Vendors\imgui\imgui_impl_opengl2.cpp" />
     <ClCompile Include="Src\Vendors\imgui\imgui_impl_glut.cpp" />
     <ClCompile Include="Src\Main.cpp" />
@@ -161,6 +162,7 @@
     <None Include="glew32.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\GUI.h" />
     <ClInclude Include="Src\Vendors\imgui\imgui_impl_opengl2.h" />
     <ClInclude Include="Src\Vendors\imgui\imgui_impl_glut.h" />
     <ClInclude Include="Src\Vendors\imgui\imconfig.h" />

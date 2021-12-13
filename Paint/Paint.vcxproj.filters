@@ -39,6 +39,9 @@
     <ClCompile Include="Src\Vendors\imgui\imgui_impl_opengl2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\GLEW\bin\Release\Win32\glew32.dll" />
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Vendors\imgui\imgui_impl_opengl2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
