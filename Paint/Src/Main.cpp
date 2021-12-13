@@ -1,36 +1,31 @@
-//#include "Vendors\imgui\imgui.h"
-//#include "Vendors\imgui\imgui_impl_glut.h"
-//#include "Vendors\imgui\imgui_impl_opengl2.h"
-
-#include <GL/glut.h>    
-#include<iostream>
+﻿#include<iostream>
 #include<vector>
+
+#include "GUI.h"
+
+#define BLACK 0, 0, 0
+#define WHITE 1, 1, 1
+#define RED 1, 0, 0
+#define GREEN 0, 1, 0
+#define BLUE 0, 0, 1
 
 
 using namespace std;
 
-GLsizei width, height;
-int x, y;
-int px, py;
 
-float r, g, b;
+GUI gui;
 
-bool check = false;
-bool mouseDown = false;
 
+int colorIndex;
+
+int x;
+int y;
+bool mouseDown;
 std::vector< float > points;
 
 
-int windowHeight;
-int windowWidth;
 
-void drawGUI()
-{
-    glColor3f(0.2, 0.2, 0.2);
-    glRecti(0, 0, glutGet(GLUT_WINDOW_WIDTH), 50);
 
-    
-}
 
 
 
@@ -38,20 +33,14 @@ void movedMouse(int mouseX, int mouseY)
 {
     x = mouseX;
     y = mouseY;
-   
-    
-   /* glPointSize(5);
-    glBegin(GL_POINTS);
-    glVertex2i(x, glutGet(GLUT_WINDOW_HEIGHT) -  y);
-    glVertex2i(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
-    glEnd();*/
 
+    if (mouseDown == true && x > 30 && y > 30 && x < gui.canvasX && y < gui.canvasY)
+    {
+        points.push_back(x);
+        points.push_back(y);
+    }
+       
    
-    points.push_back(x);
-    points.push_back(y);
-    
-    
-    mouseDown = true;
    
     
 }
@@ -59,36 +48,58 @@ void movedMouse(int mouseX, int mouseY)
 
 void mouse(int button, int state, int mousex, int mousey)
 {
+
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
         x = mousex;
         y = mousey;
+    }
+    if (button == GLUT_LEFT_BUTTON && x > 30 && y > 30 && x < gui.canvasX && y < gui.canvasY)
+    {
+        
         points.push_back(x);
         points.push_back(y);
-        points.push_back(x);
-        points.push_back(y);
+        
        
         mouseDown = true;
         
     }
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN &&
+        (gui.colorAbsPosX + 30) > x &&
+        (gui.colorAbsPosY + glutGet(GLUT_WINDOW_HEIGHT)) - 30 > y &&
+        (gui.colorAbsPosX + 50) < x &&
+        (gui.colorAbsPosY + glutGet(GLUT_WINDOW_HEIGHT)) - 50 < y)
+    {
+        colorIndex = 1;
+    }
+
+
     if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
     {
         
        
         points.clear();
     }
-  
+    
 
    
 }
+
+
 void draw()
 {
     
 
     glBegin(GL_POINTS);
-    glColor3f(0.0f, 0.0f, 0.0f);
+    
     for (size_t i = 0; i < points.size(); i += 2)
     {
+        glColor3f(0.0f, 0.0f, 0.0f);
+        if (colorIndex == 1)
+        {
+            glColor3f(RED);
+            cout << "color: " << "red" << endl;
+        }
         glVertex2i(points[i], glutGet(GLUT_WINDOW_HEIGHT) - points[i + 1]);
 
 
@@ -101,14 +112,9 @@ void draw()
  
 }
 
-
-
-void display(void)
+void setup()
 {
-    
-    windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
-    windowWidth = glutGet(GLUT_WINDOW_WIDTH);
-
+   
     glClearColor(0.9f, 0.9f, 0.9f, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -118,37 +124,41 @@ void display(void)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+}
+
+
+
+void display(void)
+{
+    
+
+    setup();
+    
     
     glPointSize(5);
 
-    draw();
-       
-
-  
-
-       
-        
-                
+    gui.drawCanvas(1890, 930);
     
-    
-   
 
-   drawGUI();
+    draw();     
+    
+    gui.drawDock();
+    cout << colorIndex << endl;
    
 
    glutSwapBuffers();
 
    
-    glutPostRedisplay();
+   glutPostRedisplay();
    
 }
 
 void init()
 {
     glutDisplayFunc(display);
-    
     glutMouseFunc(mouse);
     glutMotionFunc(movedMouse);
+    
 }
 
 
@@ -158,7 +168,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
     glClearColor(1, 1, 1, 1);
     glutInitWindowSize(1920, 1080);
-    glutInitWindowPosition(100, 100);
+    glutInitWindowPosition(0, 0);
     
     glutCreateWindow("Paint");
 

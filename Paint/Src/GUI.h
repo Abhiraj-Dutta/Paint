@@ -1,11 +1,21 @@
+#include <GL\glut.h>
+
 #pragma once
 class GUI
 {
 public:
-	int GUIWindowHeight;
-	int GUIWindowWidth;
-	GUI(int, int, int, int);
+	GUI();
 
+	int canvasX;
+	int canvasY;
 
+	int colorAbsPosX;
+	int colorAbsPosY;
+
+	void drawDock();
+	void drawColorPickers(int, int);
+	void drawCanvas(int, int);
+
+	void drawGUI();
 };
 
